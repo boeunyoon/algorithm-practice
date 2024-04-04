@@ -42,21 +42,33 @@ public class Main {
 		System.out.println(kanpsack());
 	}
 	
-	static long kanpsack() {
-		long[][] dp = new long[personList.size() + 1][K];
-		
-		for(int i = 1; i < personList.size() + 1; i++) {
-			int personCount = personList.get(i - 1); //그룹 별 사람 수
-			long val = valueList.get(i - 1); //그룹 별 사탕 수
-			for(int j = 0; j < K; j++) {
-				if(personCount <= j) {
-					dp[i][j] = Math.max(dp[i - 1][j], dp[i - 1][j - personCount] + val);
-				}else {
-					dp[i][j] = dp[i - 1][j];
+	static int kanpsack() {
+//		long[][] dp = new long[personList.size() + 1][K];
+//		for(int i = 1; i < personList.size() + 1; i++) {
+//			int personCount = personList.get(i - 1); //그룹 별 사람 수
+//			long val = valueList.get(i - 1); //그룹 별 사탕 수
+//			for(int j = 0; j < K; j++) {
+//				if(personCount <= j) {
+//					dp[i][j] = Math.max(dp[i - 1][j], dp[i - 1][j - personCount] + val);
+//				}else {
+//					dp[i][j] = dp[i - 1][j];
+//				}
+//			}
+//		}
+//		return dp[personList.size()][K - 1];
+		int [] dp = new int[K + 1];
+		for(int i = 0; i < personList.size(); i++) {
+			int personCount = personList.get(i); //그룹 별 사람 수
+			int val = valueList.get(i); //그룹 별 사탕 수
+			for(int j = K; j >= 0; j--) {
+				int pre = j- personCount;
+				if(pre < 0) {
+					break;
 				}
+				dp[j] = Math.max(dp[pre] + val, dp[j]);
 			}
 		}
-		return dp[personList.size()][K - 1];
+		return dp[K-1];
 	}
 	
 	static void makeGroup() {
