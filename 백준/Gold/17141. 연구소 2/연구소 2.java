@@ -3,14 +3,14 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Queue;
 import java.util.StringTokenizer;
 
 public class Main {
 	static int N, M, map[][], min, copy[][];
-	static List<Point> virus;
+//	static List<Point> virus;
+	static Point[] virus;
 	static Point[] result;
 	static boolean[] visit;
 	static int[] di = {-1, 0, 1, 0};
@@ -22,16 +22,20 @@ public class Main {
 		M = Integer.parseInt(st.nextToken());
 		min = Integer.MAX_VALUE;
 		map = new int[N][N];
-		virus = new ArrayList<Point>();
+//		virus = new ArrayList<Point>();
+		virus = new Point[10];
+		int count = 0;
 		for(int i = 0; i < N; i++) {
 			st = new StringTokenizer(br.readLine());
 			for(int j = 0; j < N; j++) {
 				map[i][j] = Integer.parseInt(st.nextToken());
-				if(map[i][j] == 2) virus.add(new Point(i, j));
+				if(map[i][j] == 2) {
+					virus[count++] = new Point(i, j);
+				}
 			}
 		}//end input
 		result = new Point[M];
-		visit = new boolean[virus.size()];
+		visit = new boolean[10];
 		combi(0, 0);
 		System.out.println(min == Integer.MAX_VALUE ? -1 : min - 1);
 	}
@@ -52,10 +56,11 @@ public class Main {
 			if(flag) min = Math.min(min, time);
 			return;
 		}
-		for(int i = start; i < virus.size(); i++) {
+		for(int i = start; i < 10; i++) {
+			if(virus[i] == null) return;
 			if(visit[i]) continue;
 			visit[i] = true;
-			result[count] = virus.get(i);
+			result[count] = virus[i];
 			combi(i + 1, count + 1);
 			visit[i] = false;
 		}
