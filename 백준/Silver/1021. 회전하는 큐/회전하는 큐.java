@@ -46,9 +46,9 @@ public class Main {
 	}
 
 	static void two(int num) {
-		count++;
 		while (true) {
 			if (q.getLast() == num) {
+				count++;
 				q.removeLast();
 				break;
 			}
