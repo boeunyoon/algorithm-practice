@@ -18,12 +18,14 @@ public class Main {
 			 time[i] = Integer.parseInt(st.nextToken());
 			 price[i] = Integer.parseInt(st.nextToken());
 		}
+		//Bottom UP 방식 -> 1일부터 차례대로 최댓값을 갱신
 		for (int i = 0; i <= N; i++) {
-            max = Math.max(max, dp[i]);
+            max = Math.max(max, dp[i]); // 일에 얻을 수 있는 최대 금액 (max)
 
-            int ni = i + time[i];
+            int ni = i + time[i]; //다음날 구한다.
+  
             if (ni <= N) {
-                dp[ni] = Math.max(dp[ni], max + price[i]);
+                dp[ni] = Math.max(dp[ni], max + price[i]); //다음날까지 얻을 수 있는 최대 금액 갱신
             }
 
 //            for (int t : dp) {
