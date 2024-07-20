@@ -10,18 +10,22 @@ public class Main {
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st = new StringTokenizer(br.readLine());
-		PriorityQueue<Integer> pq = new PriorityQueue<Integer>(Collections.reverseOrder());
+		PriorityQueue<Integer> pq = new PriorityQueue<Integer>();
 		N = Integer.parseInt(st.nextToken());
+		st = new StringTokenizer(br.readLine());
 		for(int i = 0; i < N; i++) {
+			pq.add(Integer.parseInt(st.nextToken()));
+		} //첫 줄은 그냥 입력
+		for(int i = 0; i < N - 1; i++) {
 			st = new StringTokenizer(br.readLine());
 			for(int j = 0; j < N; j++) {
-				pq.add(Integer.parseInt(st.nextToken()));
+				int num = Integer.parseInt(st.nextToken());
+				if(pq.peek() < num) { //가장 앞에 있는 값과 비교, 현재 값이 더 크면 교체
+					pq.poll(); 
+					pq.add(num);
+				}
 			}
 		}// end input
-		int ans = 0;
-		for(int i = 0; i < N; i++) {
-			ans = pq.poll();
-		}
-		System.out.println(ans);
+		System.out.println(pq.poll());
 	}
 }
